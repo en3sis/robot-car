@@ -25,26 +25,27 @@ https://index.ros.org/p/teleop_twist_joy/github-ros2-teleop_twist_joy/
 
 Install with:
 
-```
+```bash
 sudo apt install ros-humble-teleop-twist-joy 
 ```
 
 Run with (open new terminal):
 
-```
+```bash
+sudo su
 source /opt/ros/humble/setup.bash
 ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
 ```
 
 If you want to see if topics are being published:
 
-```
+```bash
 ros2 topic list
 ```
 
 To see topic contents:
 
-```
+```bash
 ros2 topic echo <topic-name>
 ```
 

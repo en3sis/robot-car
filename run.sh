@@ -8,6 +8,7 @@ else
     exit 1
 fi
 
+source /opt/ros/humble/setup.bash
 source /home/pirobot/workspace/install/setup.bash
 
 target/debug/robot-car
