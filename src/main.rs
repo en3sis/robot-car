@@ -18,16 +18,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     // println!("Hello an LED on a {}.", DeviceInfo::new()?.model());
     let mut radxa_pwm = RadxaController::new();
     println!("Turning off the LED");
-    radxa_pwm.set_vel(100,100);
+    radxa_pwm.set_vel(1000,1000);
     thread::sleep(Duration::from_secs(1));
 
-    radxa_pwm.set_vel(100,-100);
+    radxa_pwm.set_vel(1000,-1000);
     thread::sleep(Duration::from_secs(1));
 
-    radxa_pwm.set_vel(-100,100);
+    radxa_pwm.set_vel(-1000,1000);
     thread::sleep(Duration::from_secs(1));
 
-    radxa_pwm.set_vel(-100,-100);
+    radxa_pwm.set_vel(-1000,-1000);
     thread::sleep(Duration::from_secs(1));
 
     radxa_pwm.set_vel(0,0);
