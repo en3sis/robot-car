@@ -15,12 +15,16 @@ pub struct RadxaController {
 impl RadxaController {
     pub fn new() -> RadxaController {
 
-        let dev = I2cdev::new("/dev/i2c-3").unwrap();
+        let dev = I2cdev::new("/dev/i2c-7").unwrap();
         let address = Address::default(); 
 
-        let mut pwm = Pca9685::new(dev, address).unwrap();
-        pwm.set_prescale(100).unwrap();
+        let result = Pca9685::new(dev, address);
+        let mut pwm = match result{
+            Ok(val) => val,
+            Err(error) => panic!("Error: {:?}", error),
+        };
         pwm.enable().unwrap();
+        pwm.set_prescale(100).unwrap();
 
         let pin1 = Pin::new(154);
         match pin1.export() {
