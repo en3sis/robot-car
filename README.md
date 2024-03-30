@@ -18,3 +18,33 @@ Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/
 ### Notes:
 hal = hardware abstraction layer   
 I2C = Inter-Integrated Circuit    
+
+### Xbox controller
+
+https://index.ros.org/p/teleop_twist_joy/github-ros2-teleop_twist_joy/
+
+Install with:
+
+```
+sudo apt install ros-humble-teleop-twist-joy 
+```
+
+Run with (open new terminal):
+
+```
+source /opt/ros/humble/setup.bash
+ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
+```
+
+If you want to see if topics are being published:
+
+```
+ros2 topic list
+```
+
+To see topic contents:
+
+```
+ros2 topic echo <topic-name>
+```
+
