@@ -54,19 +54,19 @@ impl RadxaController {
 
         RadxaController { pin1, pin2, pin3, pin4, pwm}
     }
-    pub fn set_left_dir_forward(&mut self){
+    fn set_left_dir_forward(&mut self){
         self.pin1.set_value(0).unwrap();
         self.pin2.set_value(1).unwrap();
     }
-    pub fn set_left_dir_barckward(&mut self){
+    fn set_left_dir_barckward(&mut self){
         self.pin1.set_value(1).unwrap();
         self.pin2.set_value(0).unwrap();
     }
-    pub fn set_right_dir_forward(&mut self){
+    fn set_right_dir_forward(&mut self){
         self.pin3.set_value(0).unwrap();
         self.pin4.set_value(1).unwrap();
     }
-    pub fn set_right_dir_barckward(&mut self){
+    fn set_right_dir_barckward(&mut self){
         self.pin3.set_value(1).unwrap();
         self.pin4.set_value(0).unwrap();
     }
