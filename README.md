@@ -18,6 +18,7 @@ Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/
 ### Notes:
 hal = hardware abstraction layer   
 I2C = Inter-Integrated Circuit    
+cross = https://github.com/cross-rs/cross
 
 ### Xbox controller
 
