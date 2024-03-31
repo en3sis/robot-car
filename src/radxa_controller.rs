@@ -1,8 +1,6 @@
 use linux_embedded_hal::sysfs_gpio::{Direction, Pin};
-// use std::error::Error;
-
-use pwm_pca9685::{Address, Channel, Pca9685};
 use linux_embedded_hal::I2cdev;
+use pwm_pca9685::{Address, Channel, Pca9685};
 
 pub struct RadxaController {
     pin1: Pin,
@@ -14,15 +12,15 @@ pub struct RadxaController {
 
 impl RadxaController {
     pub fn new() -> RadxaController {
-
         let dev = I2cdev::new("/dev/i2c-7").unwrap();
-        let address = Address::default(); 
+        let address = Address::default();
 
         let result = Pca9685::new(dev, address);
-        let mut pwm = match result{
+        let mut pwm = match result {
             Ok(val) => val,
             Err(error) => panic!("Error: {:?}", error),
         };
+
         pwm.enable().unwrap();
         pwm.set_prescale(100).unwrap();
 
@@ -39,12 +37,14 @@ impl RadxaController {
             Err(err) => println!("Gpio {} could not be exported: {}", pin2.get_pin(), err),
         }
         pin2.set_direction(Direction::Out).unwrap();
+
         let pin3 = Pin::new(150);
         match pin3.export() {
             Ok(()) => println!("Gpio {} exported!", pin3.get_pin()),
             Err(err) => println!("Gpio {} could not be exported: {}", pin3.get_pin(), err),
         }
         pin3.set_direction(Direction::Out).unwrap();
+
         let pin4 = Pin::new(149);
         match pin4.export() {
             Ok(()) => println!("Gpio {} exported!", pin4.get_pin()),
@@ -52,26 +52,32 @@ impl RadxaController {
         }
         pin4.set_direction(Direction::Out).unwrap();
 
-        RadxaController { pin1, pin2, pin3, pin4, pwm}
+        RadxaController {
+            pin1,
+            pin2,
+            pin3,
+            pin4,
+            pwm,
+        }
     }
-    fn set_left_dir_forward(&mut self){
+    fn set_left_dir_forward(&mut self) {
         self.pin1.set_value(0).unwrap();
         self.pin2.set_value(1).unwrap();
     }
-    fn set_left_dir_barckward(&mut self){
+    fn set_left_dir_barckward(&mut self) {
         self.pin1.set_value(1).unwrap();
         self.pin2.set_value(0).unwrap();
     }
-    fn set_right_dir_forward(&mut self){
+    fn set_right_dir_forward(&mut self) {
         self.pin3.set_value(0).unwrap();
         self.pin4.set_value(1).unwrap();
     }
-    fn set_right_dir_barckward(&mut self){
+    fn set_right_dir_barckward(&mut self) {
         self.pin3.set_value(1).unwrap();
         self.pin4.set_value(0).unwrap();
     }
 
-    pub fn set_vel(&mut self, vel_right : i16 , vel_left: i16){
+    pub fn set_vel(&mut self, vel_right: i16, vel_left: i16) {
         if vel_right > 0 {
             self.set_right_dir_forward();
         } else {
@@ -83,7 +89,12 @@ impl RadxaController {
             self.set_left_dir_barckward()
         }
 
-        self.pwm.set_channel_on_off(Channel::C0, 0, vel_right.abs().try_into().unwrap()).unwrap();
-        self.pwm.set_channel_on_off(Channel::C1, 0, vel_left.abs().try_into().unwrap()).unwrap();
+        self.pwm
+            .set_channel_on_off(Channel::C0, 0, vel_right.abs().try_into().unwrap())
+            .unwrap();
+
+        self.pwm
+            .set_channel_on_off(Channel::C1, 0, vel_left.abs().try_into().unwrap())
+            .unwrap();
     }
 }
