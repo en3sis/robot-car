@@ -15,7 +15,7 @@ version = "0.4"
 [dependencies.rosidl_runtime_rs]
 version = "0.4"
 
-[dependencies.sensor_msgs]
+[dependencies.geometry_msgs]
 version = "*"
 
 

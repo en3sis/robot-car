@@ -1,4 +1,4 @@
-# Rust & OSOYOO PCA9685 
+# Rust & OSOYOO PCA9685
 
 <!--toc:start-->
 - [Rust & OSOYOO PCA9685](#rust-osoyoo-pca9685)
@@ -50,7 +50,7 @@ https://index.ros.org/p/teleop_twist_joy/github-ros2-teleop_twist_joy/
 Install with:
 
 ```bash
-sudo apt install ros-humble-teleop-twist-joy 
+sudo apt install ros-humble-teleop-twist-joy
 ```
 
 Run with (open new terminal):
@@ -81,11 +81,11 @@ ros2 topic echo <topic-name>
 ---
 
 ### Resources
-GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio    
-PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/       
-Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/   
+GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio
+PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/
+Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/
 
 ### Notes:
-hal = hardware abstraction layer   
-I2C = Inter-Integrated Circuit    
+hal = hardware abstraction layer
+I2C = Inter-Integrated Circuit
 cross = https://github.com/cross-rs/cross
