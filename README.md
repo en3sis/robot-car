@@ -2,12 +2,13 @@
 
 <!--toc:start-->
 - [Rust & OSOYOO PCA9685](#rust-osoyoo-pca9685)
-    - [Building](#building)
-    - [Init repo](#init-repo)
-    - [Prerequisites](#prerequisites)
-    - [Local compilation](#local-compilation)
-    - [Xbox controller](#xbox-controller)
-    - [Troubleshouting with ros2 tools](#troubleshouting-with-ros2-tools)
+  - [Building](#building)
+  - [Prerequisites](#prerequisites)
+  - [Init repo](#init-repo)
+  - [MacOS Cross-compilation](#macos-cross-compilation)
+  - [Local compilation](#local-compilation)
+  - [Xbox controller](#xbox-controller)
+  - [Troubleshouting with ros2 tools](#troubleshouting-with-ros2-tools)
     - [Resources](#resources)
     - [Notes:](#notes)
 <!--toc:end-->
@@ -30,8 +31,9 @@ vcs import src < src/ros2_rust/ros2_rust_humble.repos
 ```
 
 ## MacOS Cross-compilation
+On MacOS, we can use docker to cross-compile the code. First, we need to build the docker image:
 ```bash
-docker buid -t ros2_rust .
+docker build -t ros2_rust .
 docker run --rm --network=host -v $PWD:$PWD -w $PWD -it ros2_rust /bin/bash
 ```
 
@@ -41,7 +43,11 @@ You need to source the ros2_rust environment every time you work on a new termin
 ```bash
 source install/setup.bash
 ```
-After sourcing once, you can do cargo build
+Then, we can build with `colcon build`:
+
+```bash
+colcon build
+```
 
 ## Xbox controller
 
@@ -81,11 +87,11 @@ ros2 topic echo <topic-name>
 ---
 
 ### Resources
-GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio
-PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/
-Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/
+- GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio   
+- PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/   
+- Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/   
 
 ### Notes:
-hal = hardware abstraction layer
-I2C = Inter-Integrated Circuit
-cross = https://github.com/cross-rs/cross
+- hal = hardware abstraction layer
+- I2C = Inter-Integrated Circuit
+- cross = https://github.com/cross-rs/cross
