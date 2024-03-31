@@ -25,6 +25,13 @@ Follow install steps on:
 
 https://github.com/ros2-rust/ros2_rust
 
+### Init repo
+
+```bash
+git submodule update --init
+vcs import src < src/ros2_rust/ros2_rust_humble.repos
+```
+
 ### Local compilation
 
 You need to source the ros2_rust environment every time you work on a new terminal:
