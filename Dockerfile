@@ -1,16 +1,14 @@
 FROM ros:humble-ros-base
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt upgrade && apt install \
+RUN apt update && apt -y upgrade && apt -y install \
  git \
  curl \
  libclang-dev \
  python3-pip \
- python3-vcstool && \
- && apt-get clean  \
- && rm -rf /var/lib/apt/lists/*
+ python3-vcstool  
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain 1.74.0 -y  && \
  export PATH=/root/.cargo/bin:$PATH && \
  cargo install cargo-ament-build  && \
  pip3 install git+https://github.com/colcon/colcon-cargo.git && \
