@@ -1,2 +1,6 @@
 /target
 app.config
+build/
+install/
+log/
+.cargo/
