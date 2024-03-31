@@ -83,7 +83,7 @@ impl RadxaController {
             self.set_left_dir_barckward()
         }
 
-        self.pwm.set_channel_on_off(Channel::C0, 0, vel_right.abs().try_into().unwrap()).unwrap();
-        self.pwm.set_channel_on_off(Channel::C1, 0, vel_left.abs().try_into().unwrap()).unwrap();
+        self.pwm.set_channel_on_off(Channel::C1, 0, vel_right.abs().try_into().unwrap()).unwrap();
+        self.pwm.set_channel_on_off(Channel::C0, 0, vel_left.abs().try_into().unwrap()).unwrap();
     }
 }
