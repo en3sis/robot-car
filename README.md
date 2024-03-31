@@ -3,38 +3,47 @@
 <!--toc:start-->
 - [Rust & OSOYOO PCA9685](#rust-osoyoo-pca9685)
     - [Building](#building)
+    - [Init repo](#init-repo)
+    - [Prerequisites](#prerequisites)
+    - [Local compilation](#local-compilation)
+    - [Xbox controller](#xbox-controller)
+    - [Troubleshouting with ros2 tools](#troubleshouting-with-ros2-tools)
     - [Resources](#resources)
     - [Notes:](#notes)
 <!--toc:end-->
 
-### Building
+## Building
 https://osoyoo.com/2022/07/21/osoyoo-raspberry-pi-car-v2-1-lesson-1-basic-install-and-coding-gpio-pca9685-python/
 
-### Resources
-GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio    
-PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/       
-Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/   
+## Prerequisites
+If needed, install vcs tool:
 
-### Notes:
-hal = hardware abstraction layer   
-I2C = Inter-Integrated Circuit    
-cross = https://github.com/cross-rs/cross
+```bash
+pip3 install vcstool
+```
 
-### Prerequisites
-Follow install steps on:
+## Init repo
 
-https://github.com/ros2-rust/ros2_rust
+```bash
+git submodule update --init
+vcs import src < src/ros2_rust/ros2_rust_humble.repos
+```
 
-### Local compilation
+## MacOS Cross-compilation
+```bash
+docker buid -t ros2_rust .
+docker run --rm --network=host -v $PWD:$PWD -w $PWD -it ros2_rust /bin/bash
+```
 
+## Local compilation
 You need to source the ros2_rust environment every time you work on a new terminal:
 
 ```bash
-source ~/workspace/install/setup.bash
+source install/setup.bash
 ```
 After sourcing once, you can do cargo build
 
-### Xbox controller
+## Xbox controller
 
 https://index.ros.org/p/teleop_twist_joy/github-ros2-teleop_twist_joy/
 
@@ -51,9 +60,7 @@ sudo su
 source /opt/ros/humble/setup.bash
 ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
 ```
-### Troubleshouting with ros2 tools
-
-
+## Troubleshouting with ros2 tools
 
 Remember that every time you need to run ros commands, you need to source the setup.bash file. You need to do that in every new terminal you open.
 ```bash
@@ -71,4 +78,14 @@ To see topic contents:
 ```bash
 ros2 topic echo <topic-name>
 ```
+---
 
+### Resources
+GPI: https://github.com/golemparts/rppal?tab=readme-ov-file#gpio    
+PWM: https://docs.rs/pwm-pca9685/latest/pwm_pca9685/       
+Linux Embedded: https://docs.rs/linux-embedded-hal/latest/linux_embedded_hal/   
+
+### Notes:
+hal = hardware abstraction layer   
+I2C = Inter-Integrated Circuit    
+cross = https://github.com/cross-rs/cross

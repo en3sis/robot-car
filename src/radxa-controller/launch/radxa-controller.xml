@@ -1,0 +1,5 @@
+<launch>
+
+  <node pkg="radxa-controller" exec="radxa-controller" name="rada_controller" output="screen" />
+
+</launch>

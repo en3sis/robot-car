@@ -3,7 +3,7 @@
    href="http://download.ros.org/schema/package_format3.xsd"
    schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>robot-car</name>
+  <name>radxa-controller</name>
   <version>0.4.1</version>
   <description>Package containing an example of the publish-subscribe mechanism in rclrs.</description>
   <maintainer email="esteve@apache.org">Esteve Fernandez</maintainer>

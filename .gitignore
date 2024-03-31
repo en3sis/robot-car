@@ -1,2 +1,8 @@
-/target
+src/radxa-controller/target
+src/ros2
 app.config
+target/
+build/
+install/
+log/
+.cargo/
