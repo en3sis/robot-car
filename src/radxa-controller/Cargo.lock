@@ -521,11 +521,11 @@ name = "radxa-controller"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "geometry_msgs",
  "linux-embedded-hal",
  "pwm-pca9685",
  "rclrs",
  "rosidl_runtime_rs",
- "sensor_msgs",
 ]
 
 [[package]]
@@ -597,16 +597,6 @@ dependencies = [
  "libc",
  "linux-raw-sys",
  "windows-sys",
-]
-
-[[package]]
-name = "sensor_msgs"
-version = "4.2.3"
-dependencies = [
- "builtin_interfaces",
- "geometry_msgs",
- "rosidl_runtime_rs",
- "std_msgs",
 ]
 
 [[package]]
@@ -802,6 +792,10 @@ version = "0.4.1"
 [[patch.unused]]
 name = "rosgraph_msgs"
 version = "1.2.1"
+
+[[patch.unused]]
+name = "sensor_msgs"
+version = "4.2.3"
 
 [[patch.unused]]
 name = "test_msgs"
