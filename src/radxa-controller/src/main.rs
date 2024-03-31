@@ -39,6 +39,39 @@ fn joystick_to_pwm(x_axis: f32, y_axis: f32) -> (i32, i32) {
     (normalize_pwm(pwm_l), normalize_pwm(pwm_r))
 }
 
+fn velocity_to_motor_speeds(v: f64, w: f64) -> (i32, i32) {
+    let max_speed = 4000.0; // Maximum speed for the motors
+    let v_scaled = v * max_speed; // Scale linear velocity
+    let w_scaled = w * max_speed; // Scale angular velocity, might need adjustment
+
+    // Calculate motor speeds
+    let mut left_motor_speed = 0;
+    let mut right_motor_speed= 0;
+
+    
+    left_motor_speed = (v_scaled - w_scaled).clamp(-max_speed, max_speed) as i32;
+    right_motor_speed = (v_scaled + w_scaled).clamp(-max_speed, max_speed) as i32;
+
+    if left_motor_speed > 0 && left_motor_speed < 1300 {
+        left_motor_speed = 1300;
+    }
+    if left_motor_speed < 0 && left_motor_speed > -1300 {
+        left_motor_speed = -1300;
+    }
+
+    if right_motor_speed > 0 && right_motor_speed < 1300 {
+        right_motor_speed = 1300;
+    }
+    if right_motor_speed < 0 && right_motor_speed > -1300 {
+        right_motor_speed = -1300;
+    }
+
+
+    println!("Motor output: [{}, {}]", left_motor_speed, right_motor_speed);
+
+    (left_motor_speed, right_motor_speed)
+}
+
 fn main() -> Result<(), Error> {
     println!("Init controller");
     let mut radxa_pwm = RadxaController::new();
@@ -48,12 +81,12 @@ fn main() -> Result<(), Error> {
 
     let node = rclrs::create_node(&context, "minimal_subscriber")?;
     println!("Subscribing to joystick topic");
-    let _subscription = node.create_subscription::<sensor_msgs::msg::Joy, _>(
-        "joy",
+    let _subscription = node.create_subscription::<geometry_msgs::msg::Twist, _>(
+        "cmd_vel",
         rclrs::QOS_PROFILE_SENSOR_DATA,
-        move |msg: sensor_msgs::msg::Joy| {
-            println!("Joystic output: [{}, {}]", msg.axes[0], msg.axes[1]);
-            let (pwm_left, pwm_right) = joystick_to_pwm(msg.axes[0], msg.axes[1]);
+        move |msg: geometry_msgs::msg::Twist| {
+            
+            let (pwm_left, pwm_right) = velocity_to_motor_speeds(msg.linear.x, msg.angular.z);
             radxa_pwm.set_vel(pwm_right as i16, pwm_left as i16);
         },
     )?;
