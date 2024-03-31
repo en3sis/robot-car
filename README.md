@@ -32,7 +32,7 @@ vcs import src < src/ros2_rust/ros2_rust_humble.repos
 ## MacOS Cross-compilation
 ```bash
 docker buid -t ros2_rust .
-docker run --rm -v $PWD:/robot-car -it ros2_rust /bin/bash # this will open a shell in the container and mount the current directory
+docker run --rm --network=host -v $PWD:$PWD -w $PWD -it ros2_rust /bin/bash
 ```
 
 ## Local compilation
